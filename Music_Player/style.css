@@ -1,0 +1,392 @@
+/* ==========================================================================
+   GLOBAL RESET & BASE STYLES
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  /* Dark gradient background */
+  background: linear-gradient(135deg, #0f0c29, #1a1a2e 45%, #16213e);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  position: relative;
+  padding: 20px;
+}
+
+/* Soft glowing color blobs in the background for extra "vibe" */
+.bg-blob {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.35;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.blob-1 {
+  width: 350px;
+  height: 350px;
+  background: #8e2de2;
+  top: -80px;
+  left: -80px;
+}
+
+.blob-2 {
+  width: 350px;
+  height: 350px;
+  background: #00c9ff;
+  bottom: -80px;
+  right: -80px;
+}
+
+/* ==========================================================================
+   LAYOUT WRAPPER
+   ========================================================================== */
+.player-wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* ==========================================================================
+   GLASS CARD STYLE (shared look for player + playlist)
+   ========================================================================== */
+.player-card,
+.playlist-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  padding: 30px;
+}
+
+/* ==========================================================================
+   MUSIC PLAYER CARD
+   ========================================================================== */
+.player-card {
+  width: 340px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Album cover */
+.cover-art {
+  width: 220px;
+  height: 220px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+}
+
+.cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.cover-art:hover .cover-img {
+  transform: scale(1.06);
+}
+
+/* Song info text */
+.song-info {
+  margin-bottom: 18px;
+}
+
+.song-info h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 280px;
+}
+
+.song-info p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ==========================================================================
+   PROGRESS BAR
+   ========================================================================== */
+.progress-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+.progress-section span {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  min-width: 32px;
+}
+
+/* Generic styling shared by both range sliders (progress + volume) */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  height: 5px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+  cursor: pointer;
+}
+
+/* The filled/played portion is handled in JS via a CSS variable + gradient */
+#progress-bar {
+  background: linear-gradient(to right, #8e2de2 var(--progress, 0%), rgba(255, 255, 255, 0.2) var(--progress, 0%));
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   PLAYBACK CONTROLS
+   ========================================================================== */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  margin-bottom: 22px;
+}
+
+.control-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #fff;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-3px);
+}
+
+/* Main play/pause button is bigger and gradient-colored */
+.play-btn {
+  width: 62px;
+  height: 62px;
+  font-size: 1.3rem;
+  background: linear-gradient(135deg, #8e2de2, #4a00e0);
+  box-shadow: 0 6px 18px rgba(142, 45, 226, 0.5);
+}
+
+.play-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 22px rgba(142, 45, 226, 0.7);
+}
+
+.play-btn:active,
+.control-btn:active {
+  transform: scale(0.92);
+}
+
+/* ==========================================================================
+   VOLUME CONTROL
+   ========================================================================== */
+.volume-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.volume-section input[type="range"] {
+  height: 4px;
+}
+
+/* ==========================================================================
+   PLAYLIST CARD
+   ========================================================================== */
+.playlist-card {
+  width: 320px;
+  max-height: 460px;
+  display: flex;
+  flex-direction: column;
+}
+
+.playlist-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.playlist-list {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 4px;
+}
+
+/* Custom scrollbar for the playlist */
+.playlist-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.playlist-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+/* Each song row in the playlist */
+.playlist-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.playlist-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(3px);
+}
+
+/* Highlight style for the currently playing song */
+.playlist-item.active {
+  background: linear-gradient(135deg, rgba(142, 45, 226, 0.35), rgba(74, 0, 224, 0.35));
+  border: 1px solid rgba(142, 45, 226, 0.6);
+}
+
+.playlist-item img {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.playlist-item .track-info {
+  flex: 1;
+  min-width: 0; /* allows text-overflow to work inside flex */
+}
+
+.playlist-item .track-info h4 {
+  font-size: 0.88rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playlist-item .track-info p {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Little animated equalizer bars shown next to the active song */
+.eq-icon {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+  margin-left: auto;
+}
+
+.eq-icon span {
+  width: 3px;
+  background: #b06bff;
+  border-radius: 2px;
+  animation: eq-bounce 0.8s infinite ease-in-out;
+}
+
+.eq-icon span:nth-child(1) { height: 40%; animation-delay: 0s; }
+.eq-icon span:nth-child(2) { height: 100%; animation-delay: 0.2s; }
+.eq-icon span:nth-child(3) { height: 60%; animation-delay: 0.4s; }
+
+@keyframes eq-bounce {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 720px) {
+  .player-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .player-card,
+  .playlist-card {
+    width: 100%;
+    max-width: 360px;
+  }
+}
+
+@media (max-width: 380px) {
+  .cover-art {
+    width: 180px;
+    height: 180px;
+  }
+
+  .player-card {
+    padding: 22px;
+  }
+}
