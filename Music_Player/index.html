@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vibe Player | Simple Music Player</title>
+
+  <!-- Google Font: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome (for icons: play, pause, next, prev, volume) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background blobs for the gradient glow effect -->
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+
+  <main class="player-wrapper">
+
+    <!-- ===== MUSIC PLAYER CARD ===== -->
+    <section class="player-card">
+
+      <!-- Album Cover -->
+      <div class="cover-art">
+        <img src="" alt="Album Cover" id="cover" class="cover-img" />
+      </div>
+
+      <!-- Song Info -->
+      <div class="song-info">
+        <h2 id="song-title">Song Title</h2>
+        <p id="song-artist">Artist Name</p>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-section">
+        <span id="current-time">0:00</span>
+        <input type="range" id="progress-bar" value="0" min="0" max="100" step="1" />
+        <span id="total-duration">0:00</span>
+      </div>
+
+      <!-- Playback Controls -->
+      <div class="controls">
+        <button id="prev-btn" class="control-btn" title="Previous">
+          <i class="fa-solid fa-backward-step"></i>
+        </button>
+
+        <button id="play-btn" class="control-btn play-btn" title="Play/Pause">
+          <i class="fa-solid fa-play" id="play-icon"></i>
+        </button>
+
+        <button id="next-btn" class="control-btn" title="Next">
+          <i class="fa-solid fa-forward-step"></i>
+        </button>
+      </div>
+
+      <!-- Volume Control -->
+      <div class="volume-section">
+        <i class="fa-solid fa-volume-high"></i>
+        <input type="range" id="volume-bar" min="0" max="1" step="0.01" value="1" />
+      </div>
+
+    </section>
+
+    <!-- ===== PLAYLIST CARD ===== -->
+    <section class="playlist-card">
+      <h3 class="playlist-title"><i class="fa-solid fa-music"></i> Playlist</h3>
+      <ul id="playlist" class="playlist-list">
+        <!-- Songs are injected here dynamically by script.js -->
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- The actual audio element used to play music -->
+  <audio id="audio"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
