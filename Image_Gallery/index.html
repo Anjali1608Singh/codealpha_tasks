@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PinBoard — Discover Beautiful Images</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════ -->
+  <header class="site-header">
+    <div class="header-content">
+      <div class="logo">
+        <svg class="logo-icon" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="15" fill="url(#logoGrad)"/>
+          <path d="M16 6C10.477 6 6 10.477 6 16c0 4.236 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.181-.78 1.247-5.279 1.247-5.279s-.319-.638-.319-1.584c0-1.484.86-2.595 1.932-2.595.912 0 1.352.685 1.352 1.506 0 .917-.584 2.294-.886 3.57-.252 1.066.533 1.932 1.579 1.932 1.896 0 3.355-1.997 3.355-4.882 0-2.55-1.834-4.334-4.454-4.334-3.033 0-4.81 2.274-4.81 4.626 0 .916.352 1.895.791 2.432a.317.317 0 01.073.304c-.081.333-.26 1.066-.295 1.215-.047.196-.157.237-.362.143-1.338-.623-2.174-2.582-2.174-4.155 0-3.376 2.453-6.474 7.075-6.474 3.715 0 6.601 2.648 6.601 6.185 0 3.69-2.328 6.658-5.556 6.658-1.085 0-2.106-.564-2.455-1.229l-.667 2.489c-.241.929-.893 2.094-1.33 2.803A10 10 0 1016 6z" fill="white"/>
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32">
+              <stop offset="0%" stop-color="#E60023"/>
+              <stop offset="100%" stop-color="#ad081b"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="logo-text">PinBoard</span>
+      </div>
+
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 20 20" fill="none">
+          <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M13.5 13.5L17 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <input class="search-input" id="searchInput" type="text" placeholder="Search images…" autocomplete="off" />
+        <button class="search-clear" id="searchClear" aria-label="Clear search" hidden>✕</button>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn-pill btn-ghost" id="viewToggle" aria-label="Toggle view">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+            <rect x="2" y="2" width="7" height="7" rx="1.5"/>
+            <rect x="11" y="2" width="7" height="7" rx="1.5"/>
+            <rect x="2" y="11" width="7" height="7" rx="1.5"/>
+            <rect x="11" y="11" width="7" height="7" rx="1.5"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════
+       HERO
+  ══════════════════════════════════════ -->
+  <section class="hero">
+    <h1 class="hero-title">Discover <em>beautiful</em> imagery</h1>
+    <p class="hero-sub">108 curated photos across 12 collections</p>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FILTER BAR
+  ══════════════════════════════════════ -->
+  <nav class="filter-nav" aria-label="Image categories">
+    <div class="filter-scroll">
+      <button class="filter-pill active" data-filter="all">
+        <span class="pill-dot"></span>All
+      </button>
+      <button class="filter-pill" data-filter="nature">🌿 Nature</button>
+      <button class="filter-pill" data-filter="animals">🐾 Animals</button>
+      <button class="filter-pill" data-filter="travel">✈️ Travel</button>
+      <button class="filter-pill" data-filter="floral">🌸 Floral</button>
+      <button class="filter-pill" data-filter="architecture">🏛️ Architecture</button>
+      <button class="filter-pill" data-filter="aesthetic">✨ Aesthetic</button>
+      <button class="filter-pill" data-filter="food">🍜 Food</button>
+      <button class="filter-pill" data-filter="beach">🏖️ Beach</button>
+      <button class="filter-pill" data-filter="mountains">🏔️ Mountains</button>
+      <button class="filter-pill" data-filter="city">🌆 City</button>
+      <button class="filter-pill" data-filter="sunset">🌅 Sunset</button>
+      <button class="filter-pill" data-filter="space">🚀 Space</button>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       RESULTS COUNT
+  ══════════════════════════════════════ -->
+  <div class="results-bar">
+    <span class="results-count" id="resultsCount">108 photos</span>
+    <span class="results-filter" id="resultsFilter"></span>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       MASONRY GALLERY
+  ══════════════════════════════════════ -->
+  <main class="gallery-outer" id="galleryOuter">
+    <div class="masonry" id="masonry">
+
+      <!-- ── NATURE (9) ── -->
+      <figure class="pin" data-cat="nature" data-title="Forest from Above" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80" alt="Aerial view of a green forest" loading="lazy" />
+          <div class="pin-overlay">
+            <button class="pin-save">Save</button>
+            <div class="pin-actions">
+              <button class="pin-action-btn" aria-label="More options">•••</button>
+            </div>
+          </div>
+        </div>
+        <figcaption class="pin-caption">
+          <span class="pin-tag">Nature</span>
+          <span class="pin-title">Forest from Above</span>
+        </figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="nature" data-title="Valley Light" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&q=80" alt="Golden sunlight through mountain valley" loading="lazy" />
+          <div class="pin-overlay">
+            <button class="pin-save">Save</button>
+          </div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Nature</span><span class="pin-title">Valley Light</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="nature" data-title="Hidden Falls" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=600&q=80" alt="Tropical waterfall" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Nature</span><span class="pin-title">Hidden Falls</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="nature" data-title="Lavender Dusk" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?w=600&q=80" alt="Rolling lavender fields" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Nature</span><span class="pin-title">Lavender Dusk</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="nature" data-title="Morning Mist" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=600&q=80" alt="Misty forest morning" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Nature</span><span class="pin-title">Morning Mist</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="nature" data-title="Pine Forest" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=80" alt="Dense pine forest" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Nature</span><span class="pin-title">Pine Forest</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="nature" data-title="Green Canyon" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1540202404-a2f29016b523?w=600&q=80" alt="Lush green canyon" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Nature</span><span class="pin-title">Green Canyon</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="nature" data-title="Golden Meadow" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=600&q=80" alt="Sunlit golden meadow" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Nature</span><span class="pin-title">Golden Meadow</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="nature" data-title="River Bend" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="Scenic river bend" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Nature</span><span class="pin-title">River Bend</span></figcaption>
+      </figure>
+
+      <!-- ── ANIMALS (9) ── -->
+      <figure class="pin" data-cat="animals" data-title="Winter Fox" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1474511320723-9a56873867b5?w=600&q=80" alt="Fox in snow" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Animals</span><span class="pin-title">Winter Fox</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="animals" data-title="Sea Turtle" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?w=600&q=80" alt="Sea turtle underwater" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Animals</span><span class="pin-title">Sea Turtle</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="animals" data-title="Savanna Giant" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1456926631375-92c8ce872def?w=600&q=80" alt="Elephant in savanna" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Animals</span><span class="pin-title">Savanna Giant</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="animals" data-title="Night Watcher" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1425082661705-1834bfd09dca?w=600&q=80" alt="Owl on branch" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Animals</span><span class="pin-title">Night Watcher</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="animals" data-title="Loyal Friend" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1534361960057-19f4434a4f4f?w=600&q=80" alt="Golden Retriever" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Animals</span><span class="pin-title">Loyal Friend</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="animals" data-title="Macro Butterfly" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600&q=80" alt="Butterfly close-up" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Animals</span><span class="pin-title">Macro Butterfly</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="animals" data-title="Arctic Fox" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1484557985045-edf25e08da73?w=600&q=80" alt="Arctic fox in snow" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Animals</span><span class="pin-title">Arctic Fox</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="animals" data-title="Snowy Owl" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1437964706703-3351703b8bb3?w=600&q=80" alt="Snowy owl perched" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Animals</span><span class="pin-title">Snowy Owl</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="animals" data-title="Lion at Rest" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1516957863873-75c9a32ed8d8?w=600&q=80" alt="Lion resting" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Animals</span><span class="pin-title">Lion at Rest</span></figcaption>
+      </figure>
+
+      <!-- ── TRAVEL (9) ── -->
+      <figure class="pin" data-cat="travel" data-title="Torii Gates" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&q=80" alt="Fushimi Inari gates Kyoto" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Travel</span><span class="pin-title">Torii Gates, Kyoto</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="travel" data-title="Paris After Dark" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=600&q=80" alt="Eiffel Tower at night" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Travel</span><span class="pin-title">Paris After Dark</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="travel" data-title="Santorini Blue" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?w=600&q=80" alt="Santorini white buildings" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Travel</span><span class="pin-title">Santorini Blue</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="travel" data-title="Marrakech Medina" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80" alt="Colorful Marrakech street" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Travel</span><span class="pin-title">Marrakech Medina</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="travel" data-title="Amalfi Coast" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1526392060635-9d6019884377?w=600&q=80" alt="Amalfi coast Italy" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Travel</span><span class="pin-title">Amalfi Coast</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="travel" data-title="Venice Canal" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=600&q=80" alt="Venice canal at dusk" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Travel</span><span class="pin-title">Venice Canal</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="travel" data-title="Swiss Alps" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1530841377377-3ff06c0ca713?w=600&q=80" alt="Swiss alpine landscape" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Travel</span><span class="pin-title">Swiss Alps</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="travel" data-title="Cinque Terre" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1553697388-94e804e2f0f6?w=600&q=80" alt="Colorful Cinque Terre" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Travel</span><span class="pin-title">Cinque Terre</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="travel" data-title="Machu Picchu" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=600&q=80" alt="Machu Picchu ruins" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Travel</span><span class="pin-title">Machu Picchu</span></figcaption>
+      </figure>
+
+      <!-- ── FLORAL (9) ── -->
+      <figure class="pin" data-cat="floral" data-title="Pink Petals" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1487530811015-780780169abd?w=600&q=80" alt="Pink flower petals" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Floral</span><span class="pin-title">Pink Petals</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="floral" data-title="Sunflower Field" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1490750967868-88df5691cc2c?w=600&q=80" alt="Sunflower field" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Floral</span><span class="pin-title">Sunflower Field</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="floral" data-title="Cherry Blossoms" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1491295008900-01a5d4e6e685?w=600&q=80" alt="Cherry blossom trees" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Floral</span><span class="pin-title">Cherry Blossoms</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="floral" data-title="Wild Poppies" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=600&q=80" alt="Wild red poppies" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Floral</span><span class="pin-title">Wild Poppies</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="floral" data-title="Rose Macro" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&q=80" alt="Close up rose" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Floral</span><span class="pin-title">Rose Macro</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="floral" data-title="Wildflower Mix" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1468327768560-75b778cbb551?w=600&q=80" alt="Mix of wildflowers" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Floral</span><span class="pin-title">Wildflower Mix</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="floral" data-title="Blue Iris" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1463554050456-f2ed7d3fec09?w=600&q=80" alt="Blue iris flower" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Floral</span><span class="pin-title">Blue Iris</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="floral" data-title="Dahlia Close-up" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1533038590840-1cde6e668a91?w=600&q=80" alt="Dahlia flower close" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Floral</span><span class="pin-title">Dahlia Close-up</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="floral" data-title="Spring Bloom" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=600&q=80" alt="Spring flowers in bloom" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Floral</span><span class="pin-title">Spring Bloom</span></figcaption>
+      </figure>
+
+      <!-- ── ARCHITECTURE (9) ── -->
+      <figure class="pin" data-cat="architecture" data-title="Geometric Glass" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80" alt="Geometric glass building" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Architecture</span><span class="pin-title">Geometric Glass</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="architecture" data-title="Urban Canyon" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1481026469463-66327c86e544?w=600&q=80" alt="Looking up urban skyscrapers" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Architecture</span><span class="pin-title">Urban Canyon</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="architecture" data-title="Minimal Interior" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1524230572899-a752b3835840?w=600&q=80" alt="Minimal white staircase" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Architecture</span><span class="pin-title">Minimal Interior</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="architecture" data-title="Bridge Symmetry" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=600&q=80" alt="Symmetrical bridge structure" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Architecture</span><span class="pin-title">Bridge Symmetry</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="architecture" data-title="Modern Facade" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?w=600&q=80" alt="Contemporary building facade" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Architecture</span><span class="pin-title">Modern Facade</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="architecture" data-title="Luxury Villa" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80" alt="Luxury modern villa" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Architecture</span><span class="pin-title">Luxury Villa</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="architecture" data-title="Cathedral Arches" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80" alt="Gothic cathedral arches" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Architecture</span><span class="pin-title">Cathedral Arches</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="architecture" data-title="Steel & Glass" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1464082354059-27db6ce50048?w=600&q=80" alt="Steel and glass architecture" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Architecture</span><span class="pin-title">Steel & Glass</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="architecture" data-title="Spiral Staircase" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1505409628601-edc9af17fda6?w=600&q=80" alt="Elegant spiral staircase" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Architecture</span><span class="pin-title">Spiral Staircase</span></figcaption>
+      </figure>
+
+      <!-- ── AESTHETIC (9) ── -->
+      <figure class="pin" data-cat="aesthetic" data-title="Neon Gradient" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1557683316-973673baf926?w=600&q=80" alt="Neon color gradient" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Aesthetic</span><span class="pin-title">Neon Gradient</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="aesthetic" data-title="Pastel Sunrise" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1505144808419-1957a94ca61e?w=600&q=80" alt="Soft pastel sunrise sky" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Aesthetic</span><span class="pin-title">Pastel Sunrise</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="aesthetic" data-title="Foggy Road" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1534531173927-aeb928d54385?w=600&q=80" alt="Moody foggy road" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Aesthetic</span><span class="pin-title">Foggy Road</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="aesthetic" data-title="Soft Pink" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=600&q=80" alt="Soft pink aesthetic" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Aesthetic</span><span class="pin-title">Soft Pink</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="aesthetic" data-title="Lo-Fi Mood" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1518655048521-f130df041f66?w=600&q=80" alt="Lo-fi aesthetic scene" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Aesthetic</span><span class="pin-title">Lo-Fi Mood</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="aesthetic" data-title="Film Grains" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1516205651411-aef33a44f7c2?w=600&q=80" alt="Film grain aesthetic photo" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Aesthetic</span><span class="pin-title">Film Grains</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="aesthetic" data-title="Minimal Desk" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1524055988636-436cfa46e59e?w=600&q=80" alt="Minimal aesthetic desk setup" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Aesthetic</span><span class="pin-title">Minimal Desk</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="aesthetic" data-title="Warm Tones" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=600&q=80" alt="Warm aesthetic tones" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Aesthetic</span><span class="pin-title">Warm Tones</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="aesthetic" data-title="Dreamy Light" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1502139214982-d0ad755818d8?w=600&q=80" alt="Dreamy light leak aesthetic" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Aesthetic</span><span class="pin-title">Dreamy Light</span></figcaption>
+      </figure>
+
+      <!-- ── FOOD (9) ── -->
+      <figure class="pin" data-cat="food" data-title="Pizza Close-up" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80" alt="Delicious pizza close-up" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Food</span><span class="pin-title">Pizza Close-up</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="food" data-title="French Toast" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=600&q=80" alt="Stacked French toast" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Food</span><span class="pin-title">French Toast</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="food" data-title="Dessert Tower" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80" alt="Layered dessert tower" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Food</span><span class="pin-title">Dessert Tower</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="food" data-title="Pancake Stack" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=600&q=80" alt="Stack of fluffy pancakes" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Food</span><span class="pin-title">Pancake Stack</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="food" data-title="Avocado Toast" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&q=80" alt="Avocado toast breakfast" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Food</span><span class="pin-title">Avocado Toast</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="food" data-title="Fresh Salad" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80" alt="Fresh colorful salad bowl" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Food</span><span class="pin-title">Fresh Salad</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="food" data-title="Burger Drip" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=600&q=80" alt="Juicy gourmet burger" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Food</span><span class="pin-title">Burger Drip</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="food" data-title="Fine Dining" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Fine dining plating" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Food</span><span class="pin-title">Fine Dining</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="food" data-title="Matcha Latte" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=600&q=80" alt="Creamy matcha latte" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Food</span><span class="pin-title">Matcha Latte</span></figcaption>
+      </figure>
+
+      <!-- ── BEACH (9) ── -->
+      <figure class="pin" data-cat="beach" data-title="Turquoise Shore" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" alt="Turquoise tropical shore" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Beach</span><span class="pin-title">Turquoise Shore</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="beach" data-title="Golden Sands" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=600&q=80" alt="Golden sandy beach" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Beach</span><span class="pin-title">Golden Sands</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="beach" data-title="Tropical Lagoon" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80" alt="Crystal clear tropical lagoon" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Beach</span><span class="pin-title">Tropical Lagoon</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="beach" data-title="Wave Crash" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1504681869696-d977211a5f4c?w=600&q=80" alt="Powerful wave crashing" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Beach</span><span class="pin-title">Wave Crash</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="beach" data-title="Pink Dunes" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=600&q=80" alt="Pink sand dunes at sunset" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Beach</span><span class="pin-title">Pink Dunes</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="beach" data-title="Kite Surfing" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1437719417032-8095d7f54a90?w=600&q=80" alt="Kite surfing on ocean" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Beach</span><span class="pin-title">Kite Surfing</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="beach" data-title="Aerial Beach" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1509233725247-49e657c54213?w=600&q=80" alt="Aerial view of tropical beach" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Beach</span><span class="pin-title">Aerial Beach</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="beach" data-title="Sunset Pier" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1455264745730-cb3b76250897?w=600&q=80" alt="Wooden pier at sunset" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Beach</span><span class="pin-title">Sunset Pier</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="beach" data-title="Hammock Dream" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1520454974749-a795dca6f920?w=600&q=80" alt="Hammock over tropical water" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Beach</span><span class="pin-title">Hammock Dream</span></figcaption>
+      </figure>
+
+      <!-- ── MOUNTAINS (9) ── -->
+      <figure class="pin" data-cat="mountains" data-title="Misty Peaks" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80" alt="Misty mountain peaks" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Mountains</span><span class="pin-title">Misty Peaks</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="mountains" data-title="Snow Summit" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=600&q=80" alt="Snow covered mountain summit" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Mountains</span><span class="pin-title">Snow Summit</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="mountains" data-title="Alpine Lake" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1501761095094-94d36f57edbb?w=600&q=80" alt="Serene alpine lake" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Mountains</span><span class="pin-title">Alpine Lake</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="mountains" data-title="Rocky Trail" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=600&q=80" alt="Rugged rocky mountain trail" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Mountains</span><span class="pin-title">Rocky Trail</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="mountains" data-title="Starry Mountain" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&q=80" alt="Mountain under starry sky" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Mountains</span><span class="pin-title">Starry Mountain</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="mountains" data-title="Glacier View" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1434394354979-a235cd36269d?w=600&q=80" alt="Vast glacier panorama" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Mountains</span><span class="pin-title">Glacier View</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="mountains" data-title="Cabin in Snow" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c?w=600&q=80" alt="Cozy cabin in winter mountains" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Mountains</span><span class="pin-title">Cabin in Snow</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="mountains" data-title="Autumn Valley" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1501595091296-3aa970afb3ff?w=600&q=80" alt="Colorful autumn mountain valley" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Mountains</span><span class="pin-title">Autumn Valley</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="mountains" data-title="Volcanic Peak" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=600&q=80" alt="Dramatic volcanic peak at dawn" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Mountains</span><span class="pin-title">Volcanic Peak</span></figcaption>
+      </figure>
+
+      <!-- ── CITY (9) ── -->
+      <figure class="pin" data-cat="city" data-title="Night Skyline" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&q=80" alt="City night skyline" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">City</span><span class="pin-title">Night Skyline</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="city" data-title="Tokyo Streets" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=600&q=80" alt="Bustling Tokyo streets" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">City</span><span class="pin-title">Tokyo Streets</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="city" data-title="NYC Above" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600&q=80" alt="New York City aerial view" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">City</span><span class="pin-title">NYC Above</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="city" data-title="Neon Alley" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=600&q=80" alt="Vibrant neon city alley" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">City</span><span class="pin-title">Neon Alley</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="city" data-title="London Bridge" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1494522855154-9297ac14b55f?w=600&q=80" alt="London Tower Bridge at dusk" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">City</span><span class="pin-title">London Bridge</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="city" data-title="Chicago Loop" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?w=600&q=80" alt="Chicago Loop at night" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">City</span><span class="pin-title">Chicago Loop</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="city" data-title="Hong Kong" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=600&q=80" alt="Hong Kong skyline" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">City</span><span class="pin-title">Hong Kong</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="city" data-title="Barcelona" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=600&q=80" alt="Barcelona cityscape" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">City</span><span class="pin-title">Barcelona</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="city" data-title="Singapore" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=600&q=80" alt="Singapore skyline at night" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">City</span><span class="pin-title">Singapore</span></figcaption>
+      </figure>
+
+      <!-- ── SUNSET (9) ── -->
+      <figure class="pin" data-cat="sunset" data-title="Fiery Horizon" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1495616811223-4d98c6e9c869?w=600&q=80" alt="Fiery red sunset horizon" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Sunset</span><span class="pin-title">Fiery Horizon</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="sunset" data-title="Ocean Sunset" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1506102383123-c8ef1e872756?w=600&q=80" alt="Golden ocean sunset" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Sunset</span><span class="pin-title">Ocean Sunset</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="sunset" data-title="Palm Silhouette" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600&q=80" alt="Palm tree silhouette at sunset" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Sunset</span><span class="pin-title">Palm Silhouette</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="sunset" data-title="Desert Glow" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=600&q=80" alt="Desert glowing at sunset" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Sunset</span><span class="pin-title">Desert Glow</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="sunset" data-title="Purple Sky" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1511300636408-a63a89df3482?w=600&q=80" alt="Dramatic purple sunset sky" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Sunset</span><span class="pin-title">Purple Sky</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="sunset" data-title="Misty Dusk" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1540206395-68808572332f?w=600&q=80" alt="Misty atmospheric dusk" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Sunset</span><span class="pin-title">Misty Dusk</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="sunset" data-title="Golden Hour" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1501436513145-30f24e19fcc8?w=600&q=80" alt="Golden hour light rays" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Sunset</span><span class="pin-title">Golden Hour</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="sunset" data-title="Field at Dusk" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=600&q=80" alt="Wheat field at dusk" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Sunset</span><span class="pin-title">Field at Dusk</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="sunset" data-title="Mountain Sunset" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1434394354979-a235cd36269d?w=600&q=80&sat=-30" alt="Mountain range at sunset" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Sunset</span><span class="pin-title">Mountain Sunset</span></figcaption>
+      </figure>
+
+      <!-- ── SPACE (9) ── -->
+      <figure class="pin" data-cat="space" data-title="Nebula Cloud" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1462332420958-a05d1e002413?w=600&q=80" alt="Colorful nebula cloud" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Space</span><span class="pin-title">Nebula Cloud</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="space" data-title="Milky Way" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=600&q=80" alt="Milky Way galaxy" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Space</span><span class="pin-title">Milky Way</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="space" data-title="Deep Space" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=600&q=80" alt="Deep space starfield" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Space</span><span class="pin-title">Deep Space</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="space" data-title="Earth from Orbit" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80" alt="Earth seen from orbit" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Space</span><span class="pin-title">Earth from Orbit</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="space" data-title="Galaxy Swirl" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1464802686167-b939a6910659?w=600&q=80" alt="Swirling galaxy" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Space</span><span class="pin-title">Galaxy Swirl</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="space" data-title="Aurora Borealis" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1504192010706-dd7f569ee2be?w=600&q=80" alt="Green aurora borealis" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Space</span><span class="pin-title">Aurora Borealis</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="space" data-title="Starfield" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1538370965046-79c0d6907d47?w=600&q=80" alt="Dense starfield" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Space</span><span class="pin-title">Starfield</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="space" data-title="Comet Trail" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?w=600&q=80" alt="Comet trail in space" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Space</span><span class="pin-title">Comet Trail</span></figcaption>
+      </figure>
+
+      <figure class="pin" data-cat="space" data-title="Saturn Rings" tabindex="0">
+        <div class="pin-img-wrap">
+          <img src="https://images.unsplash.com/photo-1543722530-d2c3201371e7?w=600&q=80" alt="Saturn and its rings" loading="lazy" />
+          <div class="pin-overlay"><button class="pin-save">Save</button></div>
+        </div>
+        <figcaption class="pin-caption"><span class="pin-tag">Space</span><span class="pin-title">Saturn Rings</span></figcaption>
+      </figure>
+
+    </div><!-- /.masonry -->
+
+    <!-- Empty state -->
+    <div class="empty-state" id="emptyState" hidden>
+      <div class="empty-icon">🔍</div>
+      <p>No images found</p>
+      <small>Try a different category or search term</small>
+    </div>
+
+  </main><!-- /.gallery-outer -->
+
+  <!-- ══════════════════════════════════════
+       LIGHTBOX
+  ══════════════════════════════════════ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" hidden>
+    <div class="lb-backdrop" id="lbBackdrop"></div>
+    <div class="lb-container">
+
+      <button class="lb-close" id="lbClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+
+      <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Previous image">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+
+      <div class="lb-img-wrap" id="lbImgWrap">
+        <div class="lb-loader" id="lbLoader">
+          <div class="lb-spinner"></div>
+        </div>
+        <img class="lb-img" id="lbImg" src="" alt="" />
+      </div>
+
+      <button class="lb-arrow lb-next" id="lbNext" aria-label="Next image">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+
+    </div>
+
+    <div class="lb-info">
+      <div class="lb-meta">
+        <span class="lb-tag" id="lbTag"></span>
+        <span class="lb-title-text" id="lbTitle"></span>
+      </div>
+      <span class="lb-counter" id="lbCounter"></span>
+    </div>
+
+    <!-- Thumbnail strip -->
+    <div class="lb-thumbs" id="lbThumbs"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       BACK TO TOP
+  ══════════════════════════════════════ -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top" hidden>
+    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════ -->
+  <footer class="site-footer">
+    <p>Images from <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> · Built with ♥ using HTML, CSS & JS</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
